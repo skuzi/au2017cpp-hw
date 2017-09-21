@@ -18,12 +18,14 @@ char * strcat(char * str1, char * str2){
 }
 
 int strcmp(char * str1, char * str2){
-   char *f = str1, *s = str2;
-   while(*str1++ == *str2++){
-      *f = *str1;
-      *s = *str2;
-   }
-   return (*f - *s);
+   while (*str1 && *str2) {
+    if (*str1 < *str2)
+      return -1;
+    if (*str1 > *str2)
+      return 1;
+    ++str1; ++str2;
+  }
+  return 0;
 }
 
 size_t strlen(char * str){
