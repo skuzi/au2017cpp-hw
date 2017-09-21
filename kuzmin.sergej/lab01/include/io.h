@@ -1,1 +1,0 @@
-void logDebug(char c);
