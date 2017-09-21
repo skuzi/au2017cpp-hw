@@ -4,11 +4,12 @@ void test(char *a, char *b){
    char dest[80] = "";
    strcpy(dest, a);
    printstr(dest);
-   char *cat = strcat(dest, b);
+   char* s = b;
+   char *cat = strcat(a, b);
    printstr(cat);
    size_t len = strlen(cat);
    printf("%zu\n", len);
-   int cmp = strcmp(a, b);
+   int cmp = strcmp(dest, s);
    printf("%d\n", cmp);
 }
    
