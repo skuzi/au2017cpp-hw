@@ -33,11 +33,11 @@ int main() {
 						}
 						else
 							if (strcmp(command, "exit") == 0) {
+								free(s);
+								free(command);
 								exit(0);
 							}
 							else
 								printf("Unknown command\n");
 	}
-	free(s);
-	free(command);
 }
