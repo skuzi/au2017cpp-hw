@@ -3,6 +3,6 @@
 #include "test_str.h"
 
 int main(){
-   char a[80] = "Hello, ", b[80] = "Hello, ";
+   char a[80] = "abc", b[80] = "bca";
    test(a, b);
 }
