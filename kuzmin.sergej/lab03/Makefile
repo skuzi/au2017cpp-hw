@@ -1,6 +1,6 @@
 EXE = pose_db
 
-CFLAGS  = -Wall -O2
+CFLAGS  = -Wall -Werror -O2
 
 
 all : bin $(EXE)
