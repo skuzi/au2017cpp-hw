@@ -1,7 +1,7 @@
 #include "clist.h"
 
 
-//REALIZATION OF INTRUSIVE LIST
+//IMPLEMANTATION OF INTRUSIVE LIST
 
 clist* init_list(){
 	clist* s = malloc(sizeof(clist));
