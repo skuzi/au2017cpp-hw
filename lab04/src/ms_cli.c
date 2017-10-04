@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 		arr = begin;
 
 		for(int i = 0; i < argc - 2; i++)
-			printf("%s ", arr[i]);
+			printf("%s ", arr[i]), free(arr[i]);
 		free(begin);
 	}
 	return 0;
