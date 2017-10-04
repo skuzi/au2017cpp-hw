@@ -52,13 +52,13 @@ int main(int argc, char* argv[]) {
 		char** begin = arr;
 
 		for(int i = 1; i < argc - 1; i++){
-			arr[i - 1] = malloc(sizeof(char) * strlen(argv[i + 1]));
+			arr[i - 1] = malloc(sizeof(char*) * strlen(argv[i + 1]));
 			strcpy(arr[i - 1], argv[i + 1]);
 		}
 
 		mergesort(begin, argc - 2, sizeof(char*), strcmp1);
 
-		arr = begin;
+		//arr = begin;
 
 		for(int i = 0; i < argc - 2; i++)
 			printf("%s ", arr[i]), free(arr[i]);
