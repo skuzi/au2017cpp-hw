@@ -30,9 +30,6 @@ int mergesort (void* base, size_t num, size_t size, int (*compar)(void*, void*))
 	mergesort(base + m * size, m + (num & 1), size, compar);
 	void* c = merge(base, m, base + m * size, m + (num & 1), size, compar);
 	memcpy(base, c, num * size);
-	//for(int i = 0; i < num; i++)
-	//	printf("%c ", *((char*) (base + i * size)));
-	//printf("\n");
 	free(c);
 	return 0;
 }
