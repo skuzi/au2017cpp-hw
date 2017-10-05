@@ -1,5 +1,12 @@
 #include "mergesort.h"
 
+static void* mem_cpy(void* dst, void* src, size_t cnt) {
+	char* to = (char*) dst;
+	char* from = (char*) src;
+	for(int i = 0; i < cnt; i++)
+		*(to + i) = *(from + i);
+	return dst;
+}
 
 static void* merge(void* a, size_t sz_a, void* b, size_t sz_b, size_t size, int (*compar)(void*, void*)) {
 	void* c = malloc((sz_a + sz_b) * size);
@@ -10,13 +17,13 @@ static void* merge(void* a, size_t sz_a, void* b, size_t sz_b, size_t size, int 
 	void* cc = c;
 	while(aa != last_a || bb != last_b){
 		if(aa == last_a)
-			memcpy(cc, bb, size), bb += size;
+			mem_cpy(cc, bb, size), bb += size;
 		else if(bb == last_b)
-			memcpy(cc, aa, size), aa += size;
+			mem_cpy(cc, aa, size), aa += size;
 		else if(compar(aa, bb) < 0)
-			memcpy(cc, aa, size), aa += size;
+			mem_cpy(cc, aa, size), aa += size;
 		else
-			memcpy(cc, bb, size), bb += size;
+			mem_cpy(cc, bb, size), bb += size;
 		cc += size;
 	}
 	return c;
@@ -29,7 +36,7 @@ int mergesort (void* base, size_t num, size_t size, int (*compar)(void*, void*))
 	mergesort(base, m, size, compar);
 	mergesort(base + m * size, m + (num & 1), size, compar);
 	void* c = merge(base, m, base + m * size, m + (num & 1), size, compar);
-	memcpy(base, c, num * size);
+	mem_cpy(base, c, num * size);
 	free(c);
 	return 0;
 }
