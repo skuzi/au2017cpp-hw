@@ -3,6 +3,7 @@
 #include <stddef.h>
 
 #include "position.h"
+#include "Number.h"
 
 #define container_of(ptr, type, member) (type*)((char*)(ptr) - offsetof(type, member))
 
