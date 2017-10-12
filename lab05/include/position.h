@@ -15,11 +15,11 @@ position_node* get_position(intrusive_node* node);
 
 void add_position(intrusive_list* list, int x, int y);
 
-void show_all_positions(intrusive_list* list, char* fmt);
+void show_all_positions(intrusive_list* list);
 
-void next_position(intrusive_node* node, char* fmt);
+void next_position(intrusive_node* node);
 
-void print_position(intrusive_node* node, char* fmt);
+void print_position(intrusive_node* node);
 
 void remove_all(intrusive_list* list);
 

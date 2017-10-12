@@ -3,7 +3,7 @@
 #include <stddef.h>
 
 #include "position.h"
-#include "Number.h"
+#include "1.h"
 
 #define container_of(ptr, type, member) (type*)((char*)(ptr) - offsetof(type, member))
 
@@ -21,7 +21,7 @@ void delete_position(intrusive_list* list, intrusive_node* node) {
     free(get_position(node));
 }
 
-void print_position(intrusive_node* node, char* fmt) {
+void print_position(intrusive_node* node) {
     position_node* pnode = get_position(node);
     printf(fmt, pnode->x, pnode->y);
 }
@@ -49,16 +49,16 @@ void add_position(intrusive_list* list, int x, int y) {
     add_node(list, &pnode->node);
 }
 
-void show_all_positions(intrusive_list* list, char* fmt) {
+void show_all_positions(intrusive_list* list) {
     intrusive_node* head = &list->head;
     intrusive_node* node = head->next;
 
     for (; node != head; node = node->next) {
-        print_position(node, fmt);
+        print_position(node);
     }
 }
 
-void next_position(intrusive_node* node, char* fmt){
+void next_position(intrusive_node* node){
     node = node->next;
 }
 
