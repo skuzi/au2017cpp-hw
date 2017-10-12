@@ -16,11 +16,11 @@ typedef struct Context {
 
 } Context;
 
-void apply(intrusive_list* list, void (*op)(intrusive_node* node, char* fmt), size_t* len) {
+void apply(intrusive_list* list, void (*op)(intrusive_node* node), size_t* len) {
     intrusive_node* head = &list->head;
     intrusive_node* node = head->next;
     for(; node != head; node = node->next){
-        op(node, fmt);
+        op(node);
         (*len)++;
     }
 }
