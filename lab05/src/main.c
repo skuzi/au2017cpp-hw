@@ -40,8 +40,8 @@ size_t count(intrusive_list* list) {
 }
 
 void savebin(FILE* fout, size_t size, int x, int y) {
-    fwrite(&x, size, 1, fout);
-    fwrite(&y, size, 1, fout);
+    fwrite(&x, sizeof(char), size, fout);
+    fwrite(&y, sizeof(char), size, fout);
 }
 
 void savetext(FILE* fout, size_t size, int x, int y) {
@@ -50,8 +50,8 @@ void savetext(FILE* fout, size_t size, int x, int y) {
 
 int read_bin(int* x, int* y, size_t size, FILE* fin) {
     int cnt = 0;
-    cnt += fread(x, size, 1, fin);
-    cnt += fread(y, size, 1, fin);
+    cnt += fread(x, sizeof(char), size, fin);
+    cnt += fread(y, sizeof(char), size, fin);
     return cnt;
 }
 
@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
     init_list(list);
 
     int x, y;
-    while(1) {
+    while(!feof(fin)) {
         ctx.read(&x, &y, ctx.size, fin);
         if(feof(fin))
             break;
