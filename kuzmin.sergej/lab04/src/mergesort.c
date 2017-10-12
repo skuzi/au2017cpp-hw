@@ -30,7 +30,7 @@ static void* merge(void* a, size_t sz_a, void* b, size_t sz_b, size_t size, int 
 }
 
 int mergesort (void* base, size_t num, size_t size, int (*compar)(void*, void*)) {
-	if(num == 1)
+	if(num <= 1)
 		return 0;
 	int m = num / 2;
 	mergesort(base, m, size, compar);
