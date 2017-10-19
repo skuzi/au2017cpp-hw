@@ -1,6 +1,6 @@
 EXE = main
 
-CFLAGS  = -Wall -Werror -O2 -Iinclude
+CFLAGS  = -Wall -Werror -O2 -Iinclude -g
 
 
 all : bin $(EXE)

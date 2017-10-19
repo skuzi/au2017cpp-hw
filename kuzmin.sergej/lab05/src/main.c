@@ -79,11 +79,9 @@ int main(int argc, char* argv[]) {
     intrusive_list* list = malloc(sizeof(intrusive_list));
     init_list(list);
 
-    int x, y;
+    int x = 0, y = 0;
     while(!feof(fin)) {
         ctx.read(&x, &y, ctx.size, fin);
-        if(feof(fin))
-            break;
         add_position(list, x, y);
     }
 
