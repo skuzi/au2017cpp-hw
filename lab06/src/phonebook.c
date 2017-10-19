@@ -24,7 +24,7 @@ int save_phonebook_xml(const char *filename, phonebook_t *book) {
 	FILE *fout = fopen(filename, "w");
 	if(fout == NULL) {
  		printf("Failed to open file %s\n", filename);
-        return 1;	
+        return 1;
     }
     fprintf(fout, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<phonebook>\n");
     size_t ind = 1;
