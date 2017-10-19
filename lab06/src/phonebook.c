@@ -95,7 +95,6 @@ human_t get_human(phonebook_t *book, char* family_name) {
 
 void push_back_human(phonebook_t *book, human_t *human) {
 	if(book->size == book->capacity) {
-		//printf("%zu\n", book->capacity);
 		book->capacity *= 2;
 		book->humans = realloc(book->humans, book->capacity * sizeof(human_t));
 	}
