@@ -17,17 +17,24 @@ int main(int argc, char *argv[]){
 		printf("usage ./main <infile> <outfile>\n");
 		return 1;
 	}
+
 	phonebook_t *book = malloc(sizeof(phonebook_t));
 	book->capacity = 1;
 	book->size = 0;
 	book->humans = malloc(sizeof(human_t));
+
 	if(load_phonebook_xml(argv[1], book))
 		return 1;
+
 	qsort(book->humans, book->size, sizeof(human_t), compar);
+
 	print_phonebook(book);
+
 	srand(time(NULL));
 	gen_phonebook(book, rand() % 50);
+
 	save_phonebook_xml(argv[2], book);
+	
 	clear_phonebook(book);
 	free(book);
 }
