@@ -33,7 +33,8 @@ int main(int argc, char *argv[]){
 	srand(time(NULL));
 	gen_phonebook(book, rand() % 50);
 
-	save_phonebook_xml(argv[2], book);
+	if(save_phonebook_xml(argv[2], book))
+		return 1;
 	
 	clear_phonebook(book);
 	free(book);
