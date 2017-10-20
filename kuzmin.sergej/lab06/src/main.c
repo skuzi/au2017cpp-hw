@@ -23,8 +23,11 @@ int main(int argc, char *argv[]){
 	book->size = 0;
 	book->humans = malloc(sizeof(human_t));
 
-	if(load_phonebook_xml(argv[1], book))
+	if(load_phonebook_xml(argv[1], book)){
+		clear_phonebook(book);
+		free(book);
 		return 1;
+	}
 
 	qsort(book->humans, book->size, sizeof(human_t), compar);
 
@@ -33,8 +36,11 @@ int main(int argc, char *argv[]){
 	srand(time(NULL));
 	gen_phonebook(book, rand() % 50);
 
-	if(save_phonebook_xml(argv[2], book))
+	if(save_phonebook_xml(argv[2], book)){
+		clear_phonebook(book);
+		free(book);
 		return 1;
+	}
 	
 	clear_phonebook(book);
 	free(book);
