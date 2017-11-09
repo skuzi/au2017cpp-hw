@@ -36,6 +36,7 @@ void end_element(void *data, const char *element) {
     phonebook_t *book = *((phonebook_t**)data);
     if(!strcmp(element, "phone")) {
         strncpy(book->human_to_add.phones[book->human_to_add.phones_cnt++], book->human_to_add.phone_to_add, strlen(book->human_to_add.phone_to_add));
+        memset(book->human_to_add.phone_to_add, 0, 21);
     }
     else if(!strcmp(element, "human")) {
         push_back_human(book, &(book->human_to_add));
