@@ -18,7 +18,7 @@ int readBMP(FILE *f, bmpImg *image) {
     fseek(f, bitmapFileHeader->bfOffBits, SEEK_SET);
 
     image->pixel_array = malloc(bitmapInfoHeader->biHeight * sizeof(pixel*));
-    if(image->pixel_array == NULL){
+    if(image->pixel_array == NULL) {
         return 1;
     }
 
@@ -42,7 +42,7 @@ int readBMP(FILE *f, bmpImg *image) {
             return 1;
         }
     }
-    
+
     return 0;
 }
 
@@ -101,32 +101,34 @@ int cropBMP(bmpImg *image, int32_t x, int32_t y, int32_t w, int32_t h) {
 
 int rotateBMP(bmpImg *image) {
 
-    pixel **pixel_array = malloc(image->bitmapInfoHeader.biWidth * sizeof(pixel*));
+    int32_t w = image->bitmapInfoHeader.biWidth;
+    int32_t h = image->bitmapInfoHeader.biHeight;
+
+    pixel **pixel_array = malloc(w * sizeof(pixel*));
     if(pixel_array == NULL) {
         return 1;
     }
 
-    for(int i = 0; i < image->bitmapInfoHeader.biWidth; i++) {
-        pixel_array[i] = malloc(image->bitmapInfoHeader.biHeight * sizeof(pixel));
+    for(int i = 0; i < w; i++) {
+        pixel_array[i] = malloc(h * sizeof(pixel));
         if(pixel_array[i] == NULL) {
             return 1;
         }
 
-        for(int j = 0; j < image->bitmapInfoHeader.biHeight; j++) {
-            pixel_array[i][j] = image->pixel_array[j][image->bitmapInfoHeader.biWidth - i - 1];
+        for(int j = 0; j < h; j++) {
+            pixel_array[i][j] = image->pixel_array[j][w - i - 1];
         }
     }
 
-    for(int i = 0; i < image->bitmapInfoHeader.biHeight; i++) {
+    for(int i = 0; i < h; i++) {
         free(image->pixel_array[i]);
     }
     free(image->pixel_array);
 
     image->pixel_array = pixel_array;
 
-    int32_t tmp = image->bitmapInfoHeader.biHeight;
-    image->bitmapInfoHeader.biHeight = image->bitmapInfoHeader.biWidth;
-    image->bitmapInfoHeader.biWidth = tmp;
+    image->bitmapInfoHeader.biHeight = w;
+    image->bitmapInfoHeader.biWidth = h;
 
     return 0;
 }

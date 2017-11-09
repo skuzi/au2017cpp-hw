@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//0./main 1crop-rotate 2<in-bmp> 3<out-bmp> 4<x> 5<y> 6<w> 7<h>
-
 int32_t parseInt(const char* str) {
     int32_t result = 0;
     for(int i = 0; str[i]; i++){
@@ -27,7 +25,7 @@ int main(int argc, char* argv[]){
     }
     
     bmpImg image;
-    
+
     if(!strcmp(argv[1], "crop-rotate")) {
         if(argc != 8) {
             fclose(fin);
