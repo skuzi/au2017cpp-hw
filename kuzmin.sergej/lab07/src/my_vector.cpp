@@ -1,14 +1,11 @@
 #include "my_vector.h"
 
 MyVector::MyVector()
-    : _sz(0), _cp(2) {
-    _data = new int[_cp]; 
-}
+    : _sz(0), _cp(2), _data(new int[2]) {}
 
 MyVector::MyVector(std::size_t init_capacity)
-    : _sz(0), _cp(init_capacity) {
-    _data = new int[_cp];
-}
+    : _sz(0), _cp(init_capacity), _data(new int[_cp]) {}
+    
 MyVector::~MyVector() {
     delete [] _data;
 }
