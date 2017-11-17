@@ -21,7 +21,6 @@ int main(int argc, char *argv[]){
 
     if(!strcmp(argv[1], "crop-rotate")) {
         if(argc != 8) {
-            fclose(fin);
             return -1;
         }
 
