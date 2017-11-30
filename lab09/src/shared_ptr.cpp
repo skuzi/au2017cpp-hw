@@ -62,10 +62,8 @@ Matrix& shared_ptr::operator*() const {
 }
 
   
-shared_ptr::Storage::Storage(Matrix* mtx) {
-	data_ = mtx;
-	ref_count_ = 1;
-}
+shared_ptr::Storage::Storage(Matrix* mtx):
+	data_(mtx), ref_count_(1){}
 shared_ptr::Storage::~Storage() {
 	delete data_;
 }
