@@ -19,76 +19,36 @@ bool Board::checkSign(int x, int y, char sgn) {
 	return sgn == board[x][y];
 }
 
-void Board::add_horizontal(int &horizontal, int x, int y, char sgn) {
-	for(int i = x - 1; isCorrect(i); i--) {
-		if(!checkSign(i, y, sgn))
-			break;
-		horizontal++;
-	}
-
-	for(int i = x + 1; isCorrect(i); i++) {
-		if(!checkSign(i, y, sgn))
-			break;
-		horizontal++;
-	}
-}
-
-void Board::add_vertical(int &vertical, int x, int y, char sgn) {
-	for(int i = y - 1; isCorrect(i); i--) {
-		if(!checkSign(x, i, sgn)) {
-			break;
+void Board::add(int &val, int x, int y, char sgn, int *dx, int *dy) {
+	for(int t = 0; t < 2; t++) {
+		for(int i = x + dx[t], j = y + dy[t]; isCorrect(i) && isCorrect(j); i += dx[t], j += dy[t]) {
+			if(!checkSign(i, j, sgn))
+				break;
+			val++;
 		}
-		vertical++;
-	}
-
-	for(int i = y + 1; i < DIMENSION_SIZE; i++) {
-		if(!checkSign(x, i, sgn)) {
-			break;
-		}
-		vertical++;
 	}
 }
 
-void Board::add_diagonal(int &diagonal, int x, int y, char sgn) {
-	int diagonal1 = 1;
-	for(int i = x - 1, j = y - 1; isCorrect(i) && isCorrect(j); i--, j--) {
-		if(!checkSign(i, j, sgn))
-			break;
-		diagonal1++;
-	}
-	for(int i = x + 1, j = y + 1; isCorrect(i) && isCorrect(j); i++, j++) {
-		if(!checkSign(i, j, sgn))
-			break;
-		diagonal1++;
-	}
 
-	int diagonal2 = 1;
-	for(int i = x + 1, j = y - 1; isCorrect(i) && isCorrect(j); i++, j--) {
-		if(!checkSign(i, j, sgn))
-			break;
-		diagonal2++;
-	}
-
-	for(int i = x - 1, j = y + 1; isCorrect(i) && isCorrect(j); i--, j++) {
-		if(!checkSign(i, j, sgn))
-			break;
-		diagonal2++;
-	}
-
-	diagonal = (diagonal1 > diagonal2 ? diagonal1 : diagonal2);
-}
-
-GAME_STATE Board::isWin() {
+GameState Board::isWin() {
 	int horizontal = 1;
 	int vertical = 1; 
-	int diagonal = 1;
+	int diagonal1 = 1;
+	int diagonal2 = 1;
 
 	int x = last_x;
 	int y = last_y;
 	char sgn = board[x][y];
-	add_horizontal(horizontal, x, y, sgn);
-	add_vertical(vertical, x, y, sgn);
-	add_diagonal(diagonal, x, y, sgn);
+	int dx[8] = {0, 0, -1, 1, -1, 1, -1, 1};
+	int dy[8] = {-1, 1, 0, 0, -1, 1, 1, -1};
+
+	add(horizontal, x, y, sgn, dx, dy);
+	add(vertical, x, y, sgn, dx + 2, dy + 2);
+	add(diagonal1, x, y, sgn, dx + 4, dy + 4);
+	add(diagonal2, x, y, sgn, dx + 6, dy + 6);
+
+	int diagonal = diagonal1 > diagonal2 ? diagonal1 : diagonal2;
+
 	if(horizontal >= COUNT_TO_END || vertical >= COUNT_TO_END || diagonal >= COUNT_TO_END){
 		return sgn == 'X' ? X_WIN : O_WIN;
 	}	
