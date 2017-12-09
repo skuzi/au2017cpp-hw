@@ -34,7 +34,7 @@ void View::setSilent(bool val) {
 }
 
 void View::doGameCycle() {
-    Turn turn = X_TURN;
+    Turn turn = O_TURN;
     do {
         if(!silent)
             showBoard();
