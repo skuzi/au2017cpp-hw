@@ -21,6 +21,7 @@ void changeTurn(Turn &turn) {
 }
 
 void View::showBoard() {
+	printf("\n");
     for(int i = 0; i < DIMENSION_SIZE; i++) {
         for(int j = 0; j < DIMENSION_SIZE; j++) {
             printf("%c", board.getSign(i, j));
