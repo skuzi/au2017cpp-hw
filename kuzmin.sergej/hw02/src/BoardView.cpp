@@ -46,7 +46,6 @@ void View::doGameCycle() {
             printf(" move: ");
             int ret = scanf("%d %d", &x, &y);
             if(x == -1 && y == -1) {
-                exit(0);
                 return;
             }
             if(ret == 2 && board.canMove(x, y, sgn)) {
