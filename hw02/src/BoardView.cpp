@@ -10,12 +10,7 @@ View::View(Board &board, bool silent) {
 }
 
 void changeTurn(Turn &turn) {
-    if(turn == O_TURN) {
-        turn = X_TURN;
-    }
-    else {
-        turn = O_TURN;
-    }
+    turn = turn == O_TURN ? X_TURN : O_TURN;
 }
 
 void View::showBoard() {
@@ -56,7 +51,7 @@ void View::doGameCycle() {
                 printf("Bad move!\n");
             }
         } while(1);
-        
+
     } while(board.isWin() == NOT_OVER);
     
     showBoard();
