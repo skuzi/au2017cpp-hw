@@ -155,7 +155,7 @@ void BoardTest::test_getSign() {
 }
 
 void BoardTest::runAllTests() {
-//Considering Board::move() method correct. Otherwise we must test is using other methods which, for their part, are tested via Board::move() 
+//Considering Board::move() method correct. Otherwise we must test is using other methods which, for their part, are tested via Board::move()
     test_isWin();
     test_getSign();
     test_getTurn();

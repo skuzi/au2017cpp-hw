@@ -1,8 +1,8 @@
 EXE = main
-TEST = board_tests
+TEST = "board_test"
 COMPILER = g++
 
-CFLAGS  = -Wall -Werror -O2 -Iinclude -g -std=c++17
+CFLAGS  = -Wall -Werror -O2 -Iinclude -g -std=c++11
 
 
 all: bin $(EXE)
