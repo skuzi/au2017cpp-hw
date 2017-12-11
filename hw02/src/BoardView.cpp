@@ -19,6 +19,7 @@ void changeTurn(Turn &turn) {
 }
 
 void View::showBoard() {
+    printf("\n");
     for(int i = 0; i < DIMENSION_SIZE; i++) {
         for(int j = 0; j < DIMENSION_SIZE; j++) {
             printf("%c", board.getSign(i, j));
@@ -55,9 +56,7 @@ void View::doGameCycle() {
                 printf("Bad move!\n");
             }
         } while(1);
-
-        if(!silent)
-            printf("\n");
+        
     } while(board.isWin() == NOT_OVER);
     
     showBoard();
