@@ -8,8 +8,7 @@ int main(int argc, char *argv[]) {
     Board brd;
     View view(brd);
     
-    if(argc > 1 && !strcmp(argv[1], "silent"))
-        view.setSilent(true);
+    view.setSilent(argc > 1 && !strcmp(argv[1], "silent"));
 
     view.doGameCycle();
 }
