@@ -4,7 +4,7 @@
 #include "stdlib.h"
 #include "assert.h"
 
-enum Turn {O_TURN = 0, X_TURN = 1};
+enum Turn {O_TURN, X_TURN};
 
 View::View(Board &board, bool silent) {
     this->board = board;
@@ -21,7 +21,6 @@ void changeTurn(Turn &turn) {
 }
 
 void View::showBoard() {
-	printf("\n");
     for(int i = 0; i < DIMENSION_SIZE; i++) {
         for(int j = 0; j < DIMENSION_SIZE; j++) {
             printf("%c", board.getSign(i, j));
@@ -39,9 +38,11 @@ void View::doGameCycle() {
     do {
         if(!silent)
             showBoard();
+
         int x = 0;
         int y = 0;
         char sgn = turn == O_TURN ? 'O' : 'X';
+
         do {
             printf("%c", sgn);
             printf(" move: ");
@@ -57,6 +58,10 @@ void View::doGameCycle() {
                 printf("Bad move!\n");
             }
         } while(1);
+
+        if(!silent)
+            printf("\n");
+
         changeTurn(turn);
     } while(board.isWin() == NOT_OVER);
     
@@ -73,4 +78,5 @@ void View::doGameCycle() {
     else if(state == O_WIN) {
         printf("O wins!");
     }
+    printf("\n");
 }
