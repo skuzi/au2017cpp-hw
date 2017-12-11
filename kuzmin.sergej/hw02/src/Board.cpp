@@ -9,6 +9,7 @@ void Board::move(int x, int y, char sgn) {
     last_x = x;
     last_y = y;
     busy_cnt++;
+    changeTurn();
 }
 
 bool Board::canMove(int x, int y, char sgn) {
@@ -59,7 +60,7 @@ GameState Board::isWin() {
 }
 
 Board::Board():
-    last_x(0), last_y(0), busy_cnt(0)
+    last_x(0), last_y(0), busy_cnt(0), turn(O_TURN)
 {
     for(int i = 0; i < DIMENSION_SIZE; i++) {
         for(int j = 0; j < DIMENSION_SIZE; j++) {
@@ -70,4 +71,17 @@ Board::Board():
 
 char Board::getSign(int x, int y) {
     return board[x][y];
+}
+
+void Board::changeTurn() {
+    if(turn == O_TURN) {
+        turn = X_TURN;
+    }
+    else {
+        turn = O_TURN;
+    }
+}
+
+Turn Board::getTurn() {
+    return turn;
 }

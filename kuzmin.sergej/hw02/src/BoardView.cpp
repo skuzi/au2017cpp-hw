@@ -4,8 +4,6 @@
 #include "stdlib.h"
 #include "assert.h"
 
-enum Turn {O_TURN, X_TURN};
-
 View::View(Board &board, bool silent) {
     this->board = board;
     this->silent = silent;
@@ -34,14 +32,13 @@ void View::setSilent(bool val) {
 }
 
 void View::doGameCycle() {
-    Turn turn = O_TURN;
     do {
         if(!silent)
             showBoard();
 
         int x = 0;
         int y = 0;
-        char sgn = turn == O_TURN ? 'O' : 'X';
+        char sgn = board.getTurn() == O_TURN ? 'O' : 'X';
 
         do {
             printf("%c", sgn);
@@ -61,8 +58,6 @@ void View::doGameCycle() {
 
         if(!silent)
             printf("\n");
-
-        changeTurn(turn);
     } while(board.isWin() == NOT_OVER);
     
     showBoard();
