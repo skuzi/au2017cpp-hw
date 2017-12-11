@@ -4,9 +4,6 @@
 int Test::failedNum = 0;
 int Test::totalNum = 0;
 
-Test::Test() {}
-Test::~Test() {}
-
 void Test::showFinalResult() {
     if(!failedNum) {
         puts("All tests passed");

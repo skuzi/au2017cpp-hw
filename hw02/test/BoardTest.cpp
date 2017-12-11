@@ -3,9 +3,6 @@
 #include "Board.h"
 #define DO_CHECK(EXPR) BoardTest::check(EXPR, __FUNCTION__, __FILE__, __LINE__)
 
-BoardTest::BoardTest() {}
-BoardTest::~BoardTest() {}
-
 void BoardTest::test_isWin() {
     {
         BoardTest::totalNum++;
