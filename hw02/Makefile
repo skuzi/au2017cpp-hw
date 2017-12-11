@@ -1,11 +1,11 @@
 EXE = main
-TEST = tests
+TEST = board_tests
 COMPILER = g++
 
 CFLAGS  = -Wall -Werror -O2 -Iinclude -g -std=c++17
 
 
-all : bin $(EXE)
+all: bin $(EXE)
 board_test: bin $(TEST)
 
 bin:
