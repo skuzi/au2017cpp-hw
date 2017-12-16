@@ -20,20 +20,8 @@ bool Board::checkSign(int x, int y, char sgn) {
     return sgn == board[x][y];
 }
 
-void Board::recalc(int &val, int x, int y, char sgn, int *dx, int *dy) {
-    int cur = 0;
-    for(int t = 0; t < 2; t++) {
-        for(int i = x + dx[t], j = y + dy[t]; isCorrect(i) && isCorrect(j); i += dx[t], j += dy[t]) {
-            if(!checkSign(i, j, sgn))
-                break;
-            cur++;
-        }
-    }
-    if(cur > val) {
-        val = cur;
-    }
-}
-
+static const int dx[8] = {0, 0, -1, 1, -1, 1, -1, 1};
+static const int dy[8] = {-1, 1, 0, 0, -1, 1, 1, -1};
 
 GameState Board::isWin() {
     int cnt = 0;
@@ -41,11 +29,21 @@ GameState Board::isWin() {
     int x = last_x;
     int y = last_y;
     char sgn = board[x][y];
-    int dx[8] = {0, 0, -1, 1, -1, 1, -1, 1};
-    int dy[8] = {-1, 1, 0, 0, -1, 1, 1, -1};
 
-    for(int i = 0; i < 8; i += 2) {
-        recalc(cnt, x, y, sgn, dx + i, dy + i);
+    for(int pos = 0; pos < 8; pos += 2) {
+        int cur = 0;
+
+        for(int t = 0; t < 2; t++) {
+            for(int i = x + dx[pos + t], j = y + dy[pos + t]; isCorrect(i) && isCorrect(j); i += dx[pos + t], j += dy[pos + t]) {
+                if(!checkSign(i, j, sgn))
+                    break;
+                cur++;
+            }
+        }
+
+        if(cur > cnt) {
+            cnt = cur;
+        }
     }
 
     if(cnt >= COUNT_TO_END){

@@ -24,5 +24,4 @@ private:
     Turn turn;
     bool checkSign(int x, int y, char sign);
     void changeTurn();
-    void recalc(int &val, int x, int y, char sign, int *dx, int *dy);
 };
