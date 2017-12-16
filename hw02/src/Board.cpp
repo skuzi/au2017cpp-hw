@@ -20,22 +20,23 @@ bool Board::checkSign(int x, int y, char sgn) {
     return sgn == board[x][y];
 }
 
-void Board::add(int &val, int x, int y, char sgn, int *dx, int *dy) {
+void Board::recalc(int &val, int x, int y, char sgn, int *dx, int *dy) {
+    int cur = 0;
     for(int t = 0; t < 2; t++) {
         for(int i = x + dx[t], j = y + dy[t]; isCorrect(i) && isCorrect(j); i += dx[t], j += dy[t]) {
             if(!checkSign(i, j, sgn))
                 break;
-            val++;
+            cur++;
         }
+    }
+    if(cur > val) {
+        val = cur;
     }
 }
 
 
 GameState Board::isWin() {
-    int horizontal = 1;
-    int vertical = 1; 
-    int diagonal1 = 1;
-    int diagonal2 = 1;
+    int cnt = 0;
 
     int x = last_x;
     int y = last_y;
@@ -43,14 +44,11 @@ GameState Board::isWin() {
     int dx[8] = {0, 0, -1, 1, -1, 1, -1, 1};
     int dy[8] = {-1, 1, 0, 0, -1, 1, 1, -1};
 
-    add(horizontal, x, y, sgn, dx, dy);
-    add(vertical, x, y, sgn, dx + 2, dy + 2);
-    add(diagonal1, x, y, sgn, dx + 4, dy + 4);
-    add(diagonal2, x, y, sgn, dx + 6, dy + 6);
+    for(int i = 0; i < 8; i += 2) {
+        recalc(cnt, x, y, sgn, dx + i, dy + i);
+    }
 
-    int diagonal = diagonal1 > diagonal2 ? diagonal1 : diagonal2;
-
-    if(horizontal >= COUNT_TO_END || vertical >= COUNT_TO_END || diagonal >= COUNT_TO_END){
+    if(cnt >= COUNT_TO_END){
         return sgn == 'X' ? X_WIN : O_WIN;
     }    
     else {
