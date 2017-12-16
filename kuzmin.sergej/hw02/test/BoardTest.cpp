@@ -5,17 +5,17 @@
 
 void BoardTest::test_isWin() {
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(0, 0, 'X');
         b.move(0, 1, 'O');
         b.move(0, 2, 'X');
         b.move(0, 3, 'X');
-        BoardTest::failedNum += DO_CHECK(b.isWin() == NOT_OVER);
+        DO_CHECK(b.isWin() == NOT_OVER);
     }
 
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(0, 0, 'X');
         b.move(1, 1, 'X');
@@ -30,11 +30,11 @@ void BoardTest::test_isWin() {
         b.move(2, 2, 'X');
         b.move(3, 3, 'X');
         b.move(4, 4, 'X');
-        BoardTest::failedNum += DO_CHECK(b.isWin() == X_WIN);
+        DO_CHECK(b.isWin() == X_WIN);
     }
 
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(0, 0, 'O');
         b.move(0, 1, 'O');
@@ -43,111 +43,89 @@ void BoardTest::test_isWin() {
         b.move(0, 3, 'O');
         b.move(1, 2, 'X');
         b.move(0, 4, 'O');
-        BoardTest::failedNum += DO_CHECK(b.isWin() == O_WIN);
+        DO_CHECK(b.isWin() == O_WIN);
     }
 }
 
 void BoardTest::test_isCorrect() {
     Board b;
-
-    BoardTest::failedNum += DO_CHECK(b.isCorrect(-1) == false);
-    BoardTest::failedNum += DO_CHECK(b.isCorrect(10) == false);
-    BoardTest::failedNum += DO_CHECK(b.isCorrect(1000000000) == false);
-    BoardTest::failedNum += DO_CHECK(b.isCorrect(3) == true);
-
-    BoardTest::totalNum += 4;
+    DO_CHECK(b.isCorrect(-1) == false);
+    DO_CHECK(b.isCorrect(10) == false);
+    DO_CHECK(b.isCorrect(1000000000) == false);
+    DO_CHECK(b.isCorrect(3) == true);
 }
 
 void BoardTest::test_canMove() {
     {
-        BoardTest::totalNum++;
         Board b;
         b.move(0, 0, 'X');
-        BoardTest::failedNum += DO_CHECK(!b.canMove(0, 0, 'O'));
+        DO_CHECK(!b.canMove(0, 0, 'O'));
     }
 
     {
-        BoardTest::totalNum++;
         Board b;
         b.move(0, 0, 'X');
-        BoardTest::failedNum += DO_CHECK(!b.canMove(0, 0, 'X'));
+        DO_CHECK(!b.canMove(0, 0, 'X'));
     }
 
     {
-        BoardTest::totalNum++;
         Board b;
         b.move(0, 0, 'X');
-        BoardTest::failedNum += DO_CHECK(!b.canMove(0, 0, 'A'));
+        DO_CHECK(!b.canMove(0, 0, 'A'));
     }
 
     {
-        BoardTest::totalNum++;
         Board b;
-        BoardTest::failedNum += DO_CHECK(b.canMove(0, 0, 'O'));
-    }
-
-    {
-        BoardTest::totalNum++;
-        Board b;
-        BoardTest::failedNum += DO_CHECK(!b.canMove(0, 0, 'A'));
-    }
-
-    {
-        BoardTest::totalNum++;
-        Board b;
-        BoardTest::failedNum += DO_CHECK(!b.canMove(-1, 0, 'O'));
-    }
-
-    {
-        BoardTest::totalNum++;
-        Board b;
-        BoardTest::failedNum += DO_CHECK(!b.canMove(10, 10, 'O'));
+        DO_CHECK(b.canMove(0, 0, 'O'));
+        DO_CHECK(!b.canMove(0, 0, 'A'));
+        DO_CHECK(!b.canMove(-1, 0, 'O'));
+        DO_CHECK(!b.canMove(10, 10, 'O'));
     }
 }
 
 void BoardTest::test_getTurn() {
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(0, 0, 'O');
-        BoardTest::failedNum += DO_CHECK(b.getTurn() == X_TURN);
+        DO_CHECK(b.getTurn() == X_TURN);
     }
 
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(5, 6, 'O');
         b.move(0, 0, 'X');
-        BoardTest::failedNum += DO_CHECK(b.getTurn() == O_TURN);
+        DO_CHECK(b.getTurn() == O_TURN);
     }
 
     {
-        BoardTest::totalNum++;
+        
         Board b;
-        BoardTest::failedNum += DO_CHECK(b.getTurn() == O_TURN);
+        DO_CHECK(b.getTurn() == O_TURN);
     }
 }
 
 
 void BoardTest::test_getSign() {
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(0, 9, 'X');
-        BoardTest::failedNum += DO_CHECK(b.getSign(0, 9) == 'X');
+        DO_CHECK(b.getSign(0, 9) == 'X');
     }
 
     {
-        BoardTest::totalNum++;
+        
         Board b;
         b.move(7, 2, 'O');
-        BoardTest::failedNum += DO_CHECK(b.getSign(7, 2) == 'O');
+        DO_CHECK(b.getSign(7, 2) == 'O');
     }
 
     {
-        BoardTest::totalNum++;
+        
         Board b;
-        BoardTest::failedNum += DO_CHECK(b.getSign(6, 9) == '.');
+        DO_CHECK(b.getSign(6, 9) == '.');
     }
 }
 

@@ -14,7 +14,10 @@ void Test::showFinalResult() {
 }
 
 bool Test::check(bool expr, const char *func, const char *filename, std::size_t lineNum) {
-    if(!expr)
+	Test::totalNum++;
+    if(!expr) {
         printf("TEST FAILURE: function %s in %s:%zu\n", func, filename, lineNum);
+        Test::failedNum++;
+    }
     return !expr;
 }
