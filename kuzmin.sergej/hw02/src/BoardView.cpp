@@ -1,8 +1,6 @@
 #include "Board.h"
 #include "BoardView.h"
 #include "stdio.h"
-#include "stdlib.h"
-#include "assert.h"
 
 View::View(Board &board, bool silent) {
     this->board = board;
@@ -37,8 +35,7 @@ void View::doGameCycle() {
         char sgn = board.getTurn() == O_TURN ? 'O' : 'X';
 
         do {
-            printf("%c", sgn);
-            printf(" move: ");
+            printf("%c move: ", sgn);
             int ret = scanf("%d %d", &x, &y);
             if(x == -1 && y == -1) {
                 return;
