@@ -1,8 +1,6 @@
 #include "Board.h"
 #include "BoardView.h"
-#include "stdio.h"
 #include "string.h"
-#include <algorithm>
 
 int main(int argc, char *argv[]) {
     Board brd;
