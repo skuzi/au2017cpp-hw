@@ -1,4 +1,5 @@
 #pragma once
+#include "Board.h"
 class View {
 public:
     View(Board &board, bool silent = 0);
