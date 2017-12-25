@@ -3,10 +3,7 @@
 #include <cstddef>
 
 Scheme::Scheme(int capacity):
-    size(0)
-{
-    figures_ = new Figure*[capacity];
-}
+    size(0), figures_(new Figure*[capacity]) {}
 
 Scheme::~Scheme() {
     for(int i = 0; i < size; i++)
