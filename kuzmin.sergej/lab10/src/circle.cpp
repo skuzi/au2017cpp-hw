@@ -4,9 +4,8 @@
 #include <iostream>
 
 Circle::Circle(int id, int x, int y, int radius, const char* label):
-    Figure(id, x, y), radius(radius)
+    Figure(id, x, y), radius(radius), label(new char[strlen(label) + 1])
 {
-    this->label = new char[strlen(label) + 1];
     strcpy(this->label, label);
 }
 
