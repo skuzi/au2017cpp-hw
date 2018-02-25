@@ -31,7 +31,7 @@ GameState Board::isWin() {
     char sgn = board[x][y];
 
     for(int pos = 0; pos < 8; pos += 2) {
-        int cur = 0;
+        int cur = 1;
 
         for(int t = 0; t < 2; t++) {
             for(int i = x + dx[pos + t], j = y + dy[pos + t]; isCorrect(i) && isCorrect(j); i += dx[pos + t], j += dy[pos + t]) {
