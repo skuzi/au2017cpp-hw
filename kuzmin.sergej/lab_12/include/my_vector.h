@@ -118,7 +118,6 @@ void my_vector<T>::push_back(T& t) {
 template<class T>
 void my_vector<T>::pop_back() {
 	size_--;
-	array_[size_].~T();
 }
 
 template<class T>
