@@ -29,7 +29,9 @@ public:
     char* name() const {return name_; }
 
     Product& operator=(Product p) {
-    	std::swap(name_, p.name_);
+        delete [] name_;
+        name_ = new char[strlen(p.name_) + 1];
+        strcpy(name_, p.name_);
     	std::swap(quantity_, p.quantity_);
     	std::swap(price_, p.price_);
     	return *this;
@@ -94,6 +96,7 @@ int main() {
     my_vector<Product> b;
     Product d, e("qwe", -1, 7.5);
     b.push_back(d);
+    e = d;
     b.push_back(e);
     test_my_vector<Product>(b);
     
