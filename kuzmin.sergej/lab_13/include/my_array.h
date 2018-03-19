@@ -40,22 +40,19 @@ private:
 class ProxyBool {
 public:
 	ProxyBool(char* b, int pos) : pr_(b), pos_(pos) {}
+	~ProxyBool() {}
 
 	ProxyBool& operator=(bool other) {
 		*pr_ ^= (-other ^ *pr_) & (1UL << pos_);
 		return *this;
 	}
 
-	ProxyBool& operator=(const ProxyBool& other) {
-		return *this = bool(other);
-	}
-
 	operator bool() const{
 		return (*pr_ >> pos_) & 1;
 	}
 
-	~ProxyBool() {
-		delete this;
+	ProxyBool& operator=(const ProxyBool& other) {
+		return *this = bool(other);
 	}
 
 private:
@@ -74,22 +71,22 @@ public:
 		return size() == 0;
 	}
 
-	const ProxyBool& operator[](std::size_t index) const {
-		return *(new ProxyBool(const_cast<char*>(arr_ + index / 8), index % 8));
+	bool operator[](std::size_t index) const {
+		return (arr_[index / 8] >> (index % 8)) & 1;
 	}
 
-	ProxyBool& operator[](std::size_t index) {
-		return *(new ProxyBool(arr_ + index / 8, index % 8));
+	ProxyBool operator[](std::size_t index) {
+		return ProxyBool(arr_ + index / 8, index % 8);
 	}
 
-	const ProxyBool& at(std::size_t index) const {
+	bool at(std::size_t index) const {
 		assert(index >= 0 && index < N);
-		return *(new ProxyBool(const_cast<char*>(arr_ + index / 8), index % 8));
+		return (*this)[index];
 	}
 
-	ProxyBool& at(std::size_t index) {
+	ProxyBool at(std::size_t index) {	
 		assert(index >= 0 && index < N);
-		return *(new ProxyBool(arr_ + index / 8, index % 8));
+		return (*this)[index];
 	}
 
 	std::size_t size() const {
