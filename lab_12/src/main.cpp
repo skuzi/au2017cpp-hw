@@ -7,21 +7,21 @@
 class Product {
 public:
     Product(const char* name, int quantity, double price):
-    	name_(new char[strlen(name) + 1]), quantity_(quantity), price_(price)
+        name_(new char[strlen(name) + 1]), quantity_(quantity), price_(price)
     {
-    	strcpy(name_, name);
+        strcpy(name_, name);
     }
 
     Product():
-    	name_(new char[8]), quantity_(0), price_(0)
+        name_(new char[8]), quantity_(0), price_(0)
     {
-    	strncpy(name_, "DEFNAME", 8);
+        strncpy(name_, "DEFNAME", 8);
     }
 
     Product(const Product& other):
-    	name_(new char[strlen(other.name_) + 1]), quantity_(other.quantity_), price_(other.price_)
+        name_(new char[strlen(other.name_) + 1]), quantity_(other.quantity_), price_(other.price_)
     {
-    	strcpy(name_, other.name_);
+        strcpy(name_, other.name_);
     }
 
     int quantity() const { return quantity_; }
@@ -32,18 +32,18 @@ public:
         delete [] name_;
         name_ = new char[strlen(p.name_) + 1];
         strcpy(name_, p.name_);
-    	std::swap(quantity_, p.quantity_);
-    	std::swap(price_, p.price_);
-    	return *this;
+        std::swap(quantity_, p.quantity_);
+        std::swap(price_, p.price_);
+        return *this;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Product& s) {
-    	os << s.name() << ' ' << s.quantity() << ' ' << s.price();
-    	return os;
+        os << s.name() << ' ' << s.quantity() << ' ' << s.price();
+        return os;
     }
 
     ~Product() {
-   		delete [] name_;
+        delete [] name_;
     }
 
 private:
@@ -61,30 +61,30 @@ void test_my_vector(my_vector<T>& a) {
     size_t t = a.size();
     a.push_back(T());
     std::cout << a;
-	assert(a.size() == t + 1);
-	a.pop_back();
-	assert(a.size() == t);
-	a.clear();
-	assert(a.size() == 0);
-	assert(a.empty());
-	a.push_back(T());
-	assert(a.size() == 1);
-	a.reserve(3);
+    assert(a.size() == t + 1);
+    a.pop_back();
+    assert(a.size() == t);
+    a.clear();
+    assert(a.size() == 0);
+    assert(a.empty());
+    a.push_back(T());
+    assert(a.size() == 1);
+    a.reserve(3);
 
-	assert(a.size() == 1);
-	assert(a.capacity() == 4);
-	a.reserve(2);
-	assert(a.capacity() == 4);
-	assert(a.size() == 1);
-	a.resize(3);
-	assert(a.size() == 3);
-	assert(a.capacity() == 4);
-	a.push_back(T());
-	assert(a.size() == 4);
-	assert(a.capacity() == 4);
-	a.push_back(T());
-	assert(a.size() == 5);
-	assert(a.capacity() == 8);
+    assert(a.size() == 1);
+    assert(a.capacity() == 4);
+    a.reserve(2);
+    assert(a.capacity() == 4);
+    assert(a.size() == 1);
+    a.resize(3);
+    assert(a.size() == 3);
+    assert(a.capacity() == 4);
+    a.push_back(T());
+    assert(a.size() == 4);
+    assert(a.capacity() == 4);
+    a.push_back(T());
+    assert(a.size() == 5);
+    assert(a.capacity() == 8);
     a.resize(50);
     assert(a.capacity() == 64);
     std::cout << a << std::endl;
@@ -115,13 +115,15 @@ void test_my_vector(my_vector<T>& a) {
     assert(a.size() == 11);
     assert(b.capacity() == 16);
     assert(a.capacity() == 16);
+    my_vector<T> c(a);
+    std::cout << c << std::endl;
 }
 
 int main() {
-	my_vector<int> a;
-	int c = 5;
-	a.push_back(c += 5);
-	a.push_back(c);
+    my_vector<int> a;
+    int c = 5;
+    a.push_back(c += 5);
+    a.push_back(c);
     test_my_vector<int>(a);
     my_vector<Product> b;
     Product d, e("qwe", -1, 7.5);
@@ -131,4 +133,3 @@ int main() {
     
     return 0;
 }
-
