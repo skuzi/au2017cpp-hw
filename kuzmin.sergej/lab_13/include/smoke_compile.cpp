@@ -1,5 +1,5 @@
-#include <cstddef>
 #include "my_array.h"
+#include <cstddef>
 
 template<typename T, std::size_t N>
 void test_core() {

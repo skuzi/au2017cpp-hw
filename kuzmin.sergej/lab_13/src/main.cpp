@@ -13,6 +13,11 @@ int main() {
 	//cout << a[10];
 	if(sizeof(my_array<bool, 1>) == 1)
 		cout << "NICEA";
+	a[2] = false;
 	a.at(3) = true;
+	a[2] = a[3];
+	if(a[2] == a[3]) {
+		cout << "NICEA";
+	}
 	//cout << a.at(10);
 }
