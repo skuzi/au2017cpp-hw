@@ -98,9 +98,11 @@ static void go(std::shared_ptr<TreeNode> t, code_t code, codetable &codes) {
         return;
     if (t->is_terminal())
         codes[t->get_symbol()] = code;
+    
     code_t cpy(code);
     cpy.push_back(1);
     code.push_back(0);
+
     go(t->get_left(), code, codes);
     go(t->get_right(), cpy, codes);
 }
@@ -117,31 +119,26 @@ void HuffmanTree::decode(std::istream& in, std::ostream& out) {
     in.read(reinterpret_cast<char*> (&info_useful), sizeof(std::size_t));
     
     std::string data;
-    //std::cerr << "okay\n";
-    //std::cerr << "read info_useful " << info_useful << '\n';
     for(std::size_t i = 0; i < info_useful; i++){
         char c = '\0';
         if(!in.read(&c, sizeof(char)))
         	throw std::logic_error("File corrupted");
         data.push_back(c);
-        //std::cerr << "read " << (int)c << '\n';
     }
     
     std::size_t alph_sz = 0;
     info_additional += sizeof(std::size_t);
     
     in.read(reinterpret_cast<char*> (&alph_sz), sizeof(std::size_t));
-    //std::cerr << "alph_sz " << alph_sz << '\n';
     for(std::size_t i = 0; i < alph_sz; i++) {
         char symbol = '\0';
         if(!in.read(&symbol, sizeof(char)))
         	throw std::logic_error("File corrupted");
-        std::cerr << "byte " << (int)symbol << '\n';
         
         std::size_t frequency = 0;
         if(!in.read(reinterpret_cast<char*> (&frequency), sizeof(std::size_t)))
         	throw std::logic_error("File corrupted");
-        std::cerr << "freq " << frequency << '\n' << '\n';
+
         freq[symbol] = frequency;
         
         info_additional += sizeof(char) + sizeof(std::size_t);
@@ -149,32 +146,21 @@ void HuffmanTree::decode(std::istream& in, std::ostream& out) {
 
     build_tree();
     build_codes();
-    std::cerr << '\n';
-    for(auto t : codes) {
-        std::cerr << "byte " << (int)t.first << '\n' << "code ";
-        for(auto i : t.second)
-            std::cerr << i;
-        std::cerr << "\n\n";
-    }
-    std::cerr << "data" << '\n';
     
     code_t compressed = string_to_bitvec(data);
-    for(auto i : compressed)
-        std::cerr << i;
-    std::cerr << '\n';
+    
     std::shared_ptr<TreeNode> cur = root;
     for(std::size_t i = 0; i < compressed.size(); i++) {
         if(compressed[i] == 0)
             cur = cur->left;
         else
             cur = cur->right;
-        std::cerr << compressed[i];
+
         if(cur->is_terminal()) {
             char c = cur->get_symbol();
             out.write(&c, sizeof(char));
-            std::cerr << '\n';
-            file_sz++;
             
+            file_sz++;
             cur = root;
         }
     }
@@ -193,33 +179,16 @@ void HuffmanTree::encode(std::istream& in, std::ostream& out) {
     make_freq(data, freq);
     build_tree();
     build_codes();
-    for(auto t : codes) {
-        std::cerr << "byte " << (int)t.first << '\n' << "code ";
-        for(auto i : t.second)
-            std::cerr << i;
-        std::cerr << "\n\n";
-    }
-    for(auto t : freq) {
-        std::cerr << "byte " << (int)t.first << '\n' << "freq " << t.second << "\n\n";
-    }
-    //if(root->right->get_symbol() == '\0')
-    //   throw std::logic_error("WTFFFFFF");
     
     std::size_t info_useful = 0, info_additional = 0;
     
     code_t result;
-    std::cerr<< "data\n";
     for(char c : data) {
-        for(auto t : codes[c])
-            std::cerr << t;
-        std::cerr << "\n";
         result.insert(result.end(), codes[c].begin(), codes[c].end());
     }
 
     std::string res = bitvec_to_string(result);
-    std::cerr << "\ndata\n";
-    for(auto t : result)
-        std::cerr << t;
+    
     info_useful = res.size();
     out.write(reinterpret_cast<char*> (&info_useful), sizeof(std::size_t));
     out.write(res.c_str(), info_useful * sizeof(char));
@@ -254,5 +223,7 @@ void HuffmanTree::build_tree() {
         heap.erase(heap.begin());
         heap.insert(root = std::make_shared<TreeNode>('\0', 0, left, right));
     }
+    if(heap.empty())
+        return;
     root = std::make_shared<TreeNode>('\0', 0, *heap.begin(), (heap.size() <= 1 ? nullptr : *std::next(heap.begin())));
 }
